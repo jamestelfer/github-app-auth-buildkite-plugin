@@ -1,0 +1,31 @@
+#!/bin/bash
+set -euo pipefail
+
+vendor_url="${BUILDKITE_PLUGIN_GITHUB_APP_AUTH_VENDOR_URL:?vendor-url property required}"
+audience="${BUILDKITE_PLUGIN_GITHUB_APP_AUTH_AUDIENCE:-github-app-auth:default}"
+
+echo "~~~ :git: :github: Configuring git to authenticate via the vendor agent"
+
+plugin_root="$(cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd)"
+
+echo "Credential helper will run from plugin root ${plugin_root}"
+
+# set up the helper using environment variables for git config, as defined at
+# https://git-scm.com/docs/git-config#ENVIRONMENT
+
+git_config_add() {
+    local key="$1"
+    local value="$2"
+
+    count="${GIT_CONFIG_COUNT:-0}"
+
+    # count is incremented each time a setting is added
+    (( count++ ))
+
+    export GIT_CONFIG_COUNT="${count}"
+    export "GIT_CONFIG_KEY_${count}=${key}"
+    export "GIT_CONFIG_VALUE_${count}=${value}"
+}
+
+git_config_add "credential.https://github.com.usehttppath" "true"
+git_config_add "credential.https://github.com.helper" "${plugin_root}/credential-helper/buildkite-connector-credential-helper ${vendor_url} ${audience}"
