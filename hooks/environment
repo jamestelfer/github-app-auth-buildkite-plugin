@@ -20,7 +20,7 @@ git_config_add() {
     count="${GIT_CONFIG_COUNT:-0}"
 
     # count is incremented each time a setting is added
-    (( count++ ))
+    (( count = count + 1 ))
 
     export GIT_CONFIG_COUNT="${count}"
     export "GIT_CONFIG_KEY_${count}=${key}"
