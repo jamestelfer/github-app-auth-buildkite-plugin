@@ -37,8 +37,6 @@ run_environment() {
 }
 
 @test "Fails without configuration" {
-  # export BUILDKITE_COMMAND_EXIT_STATUS=0
-
   run "$PWD/hooks/environment"
 
   assert_failure
@@ -51,7 +49,7 @@ run_environment() {
   run_environment "${PWD}/hooks/environment"
 
   assert_success
-  assert_line "GIT_CONFIG_COUNT=1"
+  assert_line "GIT_CONFIG_COUNT=2"
   assert_line "GIT_CONFIG_KEY_0=credential.https://github.com.usehttppath"
   assert_line "GIT_CONFIG_VALUE_0=true"
   assert_line "GIT_CONFIG_KEY_1=credential.https://github.com.helper"
@@ -65,7 +63,7 @@ run_environment() {
   run_environment "${PWD}/hooks/environment"
 
   assert_success
-  assert_line "GIT_CONFIG_COUNT=1"
+  assert_line "GIT_CONFIG_COUNT=2"
   assert_line "GIT_CONFIG_KEY_0=credential.https://github.com.usehttppath"
   assert_line "GIT_CONFIG_VALUE_0=true"
   assert_line "GIT_CONFIG_KEY_1=credential.https://github.com.helper"
@@ -75,18 +73,23 @@ run_environment() {
 @test "Adds to existing configuration if present" {
   export BUILDKITE_PLUGIN_GITHUB_APP_AUTH_VENDOR_URL=http://test-location
 
+  # Setup existing config items. These must exist or Git will fail.
   export GIT_CONFIG_COUNT="3"
-  export GIT_CONFIG_KEY_3="key-3"
-  export GIT_CONFIG_VALUE_3="value-3"
+  export GIT_CONFIG_KEY_0="key-0"
+  export GIT_CONFIG_VALUE_0="value-0"
+  export GIT_CONFIG_KEY_1="key-1"
+  export GIT_CONFIG_VALUE_1="value-1"
+  export GIT_CONFIG_KEY_2="key-2"
+  export GIT_CONFIG_VALUE_2="value-2"
 
   run_environment "${PWD}/hooks/environment"
 
   assert_success
   assert_line "GIT_CONFIG_COUNT=5"
-  assert_line "GIT_CONFIG_KEY_3=key-3"
-  assert_line "GIT_CONFIG_VALUE_3=value-3"
-  assert_line "GIT_CONFIG_KEY_4=credential.https://github.com.usehttppath"
-  assert_line "GIT_CONFIG_VALUE_4=true"
-  assert_line "GIT_CONFIG_KEY_5=credential.https://github.com.helper"
-  assert_line --regexp "GIT_CONFIG_VALUE_5=/.*/credential-helper/buildkite-connector-credential-helper http://test-location github-app-auth:default"
+  assert_line "GIT_CONFIG_KEY_2=key-2"
+  assert_line "GIT_CONFIG_VALUE_2=value-2"
+  assert_line "GIT_CONFIG_KEY_3=credential.https://github.com.usehttppath"
+  assert_line "GIT_CONFIG_VALUE_3=true"
+  assert_line "GIT_CONFIG_KEY_4=credential.https://github.com.helper"
+  assert_line --regexp "GIT_CONFIG_VALUE_4=/.*/credential-helper/buildkite-connector-credential-helper http://test-location github-app-auth:default"
 }

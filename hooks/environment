@@ -17,14 +17,13 @@ git_config_add() {
     local key="$1"
     local value="$2"
 
-    count="${GIT_CONFIG_COUNT:--1}"
+    index=$(( "${GIT_CONFIG_COUNT:-0}" - 1 ))
 
-    # count is incremented each time a setting is added
-    (( count = count + 1 ))
-
-    export GIT_CONFIG_COUNT="${count}"
-    export "GIT_CONFIG_KEY_${count}=${key}"
-    export "GIT_CONFIG_VALUE_${count}=${value}"
+    # index is incremented each time a setting is added
+    index=$(( index + 1 ))
+    export GIT_CONFIG_COUNT=$(( index + 1 ))
+    export "GIT_CONFIG_KEY_${index}=${key}"
+    export "GIT_CONFIG_VALUE_${index}=${value}"
 }
 
 git_config_add "credential.https://github.com.usehttppath" "true"
