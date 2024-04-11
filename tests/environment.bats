@@ -51,11 +51,11 @@ run_environment() {
   run_environment "${PWD}/hooks/environment"
 
   assert_success
-  assert_line "GIT_CONFIG_COUNT=2"
-  assert_line "GIT_CONFIG_KEY_1=credential.https://github.com.usehttppath"
-  assert_line "GIT_CONFIG_VALUE_1=true"
-  assert_line "GIT_CONFIG_KEY_2=credential.https://github.com.helper"
-  assert_line --regexp "GIT_CONFIG_VALUE_2=/.*/credential-helper/buildkite-connector-credential-helper http://test-location github-app-auth:default"
+  assert_line "GIT_CONFIG_COUNT=1"
+  assert_line "GIT_CONFIG_KEY_0=credential.https://github.com.usehttppath"
+  assert_line "GIT_CONFIG_VALUE_0=true"
+  assert_line "GIT_CONFIG_KEY_1=credential.https://github.com.helper"
+  assert_line --regexp "GIT_CONFIG_VALUE_1=/.*/credential-helper/buildkite-connector-credential-helper http://test-location github-app-auth:default"
 }
 
 @test "Adds config for non-default audience" {
@@ -65,11 +65,11 @@ run_environment() {
   run_environment "${PWD}/hooks/environment"
 
   assert_success
-  assert_line "GIT_CONFIG_COUNT=2"
-  assert_line "GIT_CONFIG_KEY_1=credential.https://github.com.usehttppath"
-  assert_line "GIT_CONFIG_VALUE_1=true"
-  assert_line "GIT_CONFIG_KEY_2=credential.https://github.com.helper"
-  assert_line --regexp "GIT_CONFIG_VALUE_2=/.*/credential-helper/buildkite-connector-credential-helper http://test-location test-audience"
+  assert_line "GIT_CONFIG_COUNT=1"
+  assert_line "GIT_CONFIG_KEY_0=credential.https://github.com.usehttppath"
+  assert_line "GIT_CONFIG_VALUE_0=true"
+  assert_line "GIT_CONFIG_KEY_1=credential.https://github.com.helper"
+  assert_line --regexp "GIT_CONFIG_VALUE_1=/.*/credential-helper/buildkite-connector-credential-helper http://test-location test-audience"
 }
 
 @test "Adds to existing configuration if present" {

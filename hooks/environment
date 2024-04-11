@@ -17,7 +17,7 @@ git_config_add() {
     local key="$1"
     local value="$2"
 
-    count="${GIT_CONFIG_COUNT:-0}"
+    count="${GIT_CONFIG_COUNT:--1}"
 
     # count is incremented each time a setting is added
     (( count = count + 1 ))
