@@ -1,6 +1,14 @@
 # github-app-auth-buildkite-plugin
 
-Combines a Git credential helper with a separate helper agent to allow Buildkite agents securely authorize Github repository access.
+Combines a Git credential helper with a [`chinmina-bridge` helper
+agent][chinmina-bridge] to allow Buildkite agents securely authorize Github
+repository access.
+
+The plugin contains a Git credential helper, enabled for the current step via an
+`environment` hook.
+
+The credential helper calls `chinmina-bridge` when credentials for a GitHub
+repository are requested, supplying the result to Git in its expected format.
 
 ## Example
 
@@ -19,8 +27,9 @@ steps:
 
 ### `vendor-url` (Required, string)
 
-The URL of the helper agent that vends a token for a pipeline. This is a
-separate (as yet unreleased) agent that is accessible to your Buildkite agents.
+The URL of the [`chinmina-bridge`][chinmina-bridge] helper agent that vends a
+token for a pipeline. This is a separate HTTP service that must accessible to
+your Buildkite agents.
 
 ### `audience` (string)
 
@@ -51,3 +60,6 @@ docker-compose run --rm tests
 3. Run the tests
 4. Commit and push your changes
 5. Send a pull request
+
+
+[chinmina-bridge]: https://github.com/jamestelfer/chinmina-bridge
