@@ -29,7 +29,7 @@ steps:
     plugins:
       - jamestelfer/github-app-auth#v1.0.0:
           vendor-url: "https://chinmina-bridge-url"
-          audience: "chinmina-bridge:your-github-organization"
+          audience: "github-app-auth:your-github-organization"
 ```
 
 ## Configuration
@@ -48,7 +48,7 @@ The value of the `aud` claim of the OIDC JWT that will be sent to
 [`chinmina-bridge`][chinmina-bridge]. This must correlate with the value
 configured in the `chinmina-bridge` settings.
 
-A recommendation: `chinmina-bridge:your-github-organization`. This is specific
+A recommendation: `github-app-auth:your-github-organization`. This is specific
 to the purpose of the token, and also scoped to the GitHub organization that
 tokens will be vended for. `chinmina-bridge`'s GitHub app is configured for a
 particular GitHub organization/user, so if you have multiple organizations,
@@ -101,7 +101,7 @@ GIT_CONFIG_VALUE_0=false \
 # connect to the service and include the correct audience.
 #
 BUILDKITE_PLUGIN_GITHUB_APP_AUTH_VENDOR_URL="https://chinmina-bridge-url" \
-BUILDKITE_PLUGIN_GITHUB_APP_AUTH_AUDIENCE="chinmina-bridge:your-github-org" \
+BUILDKITE_PLUGIN_GITHUB_APP_AUTH_AUDIENCE="github-app-auth:your-github-org" \
     source /buildkite/plugins/github-app-auth-buildkite-plugin/hooks/environment
 ```
 
