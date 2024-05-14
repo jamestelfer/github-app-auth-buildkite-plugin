@@ -27,7 +27,7 @@ Add the following to your `pipeline.yml`:
 steps:
   - command: ls
     plugins:
-      - jamestelfer/github-app-auth#v1.0.0:
+      - jamestelfer/github-app-auth#v1.0.2:
           vendor-url: "https://chinmina-bridge-url"
           audience: "github-app-auth:your-github-organization"
 ```
