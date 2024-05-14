@@ -1,4 +1,6 @@
 # github-app-auth-buildkite-plugin
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fjamestelfer%2Fgithub-app-auth-buildkite-plugin.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fjamestelfer%2Fgithub-app-auth-buildkite-plugin?ref=badge_shield)
+
 
 Combines a Git credential helper with a [`chinmina-bridge` helper
 agent][chinmina-bridge] to allow Buildkite agents securely authorize Github
@@ -123,3 +125,7 @@ docker-compose run --rm tests
 
 
 [chinmina-bridge]: https://github.com/jamestelfer/chinmina-bridge
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fjamestelfer%2Fgithub-app-auth-buildkite-plugin.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fjamestelfer%2Fgithub-app-auth-buildkite-plugin?ref=badge_large)
