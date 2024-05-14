@@ -17,10 +17,11 @@ git_config_add() {
     local key="$1"
     local value="$2"
 
-    index=$(( "${GIT_CONFIG_COUNT:-0}" - 1 ))
+    local currentCount="${GIT_CONFIG_COUNT:-0}"
+
+    index=$(( currentCount ))
 
     # index is incremented each time a setting is added
-    index=$(( index + 1 ))
     export GIT_CONFIG_COUNT=$(( index + 1 ))
     export "GIT_CONFIG_KEY_${index}=${key}"
     export "GIT_CONFIG_VALUE_${index}=${value}"
